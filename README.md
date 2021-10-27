@@ -58,12 +58,12 @@ There is an _IdGeneration_ function being used to create values for Reference ob
 In order for the function to be called correctly, the XPath of the config file must be registered in the node graph, which happens in the _prepareGraph()_ of the IdGenerator.java class.
 
 ## Requirements
-We rely on [SapMachine 11](https://sap.github.io/SapMachine/) and use [Gradle](https://gradle.org/). 
+We rely on [SapMachine 11](https://sap.github.io/SapMachine/) and use [Gradle](https://gradle.org/).
 
 ## Local Usage
 
 ```sh
-$ ./gradlew build
+$ ./gradlew build 
 
 $ java -jar build/distributions/aas-transformation-library-shadow-0.0.1-SNAPSHOT.jar
 usage: transform -a <AML_INPUT_FILE> | -amlx <AMLX_INPUT_FILE> | -p  -c
