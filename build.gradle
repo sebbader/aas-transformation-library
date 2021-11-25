@@ -16,6 +16,7 @@ plugins {
     id 'maven-publish'
 }
 
+name = '${rootProject.name}'
 group = 'com.sap.dsc.aas.lib'
 version = '0.0.1-SNAPSHOT'
 
@@ -243,7 +244,8 @@ repositories {
 
 publishing {
     repositories {
-        maven {
+    	mavenCentral()
+        gpr {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/" + System.getenv("GITHUB_REPOSITORY"))
             credentials {
@@ -251,19 +253,54 @@ publishing {
                 password = System.getenv("GITHUB_TOKEN")
             }
         }
+        mavenLocal()
     }
     publications {
-        gpr(MavenPublication) {
+        mavenJava(MavenPublication) {
 			artifact jar
+			pom {
+				description = "Library to transform AutomationML (AML) content into Asset Administration Shell (AAS) format."
+				url = "https://github.com/admin-shell-io/aas-transformation-library"
+				licenses {
+					license {
+						name = "Apache License, Version 2.0"
+						url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+						distribution = "repo"
+					}
+				}
+				developers {
+        			developer {
+        				organization = "SAP SE"
+        				url = "https://github.com/admin-shell-io/java-serializer#contributors"
+        			}
+        			developer {
+        				organization = "Fraunhofer-Gesellschaft zur Foerderung der angewandten Forschung e.V."
+        				url = "https://github.com/admin-shell-io/java-serializer#contributors"
+        			}
+				}
+				scm {
+					connection = "scm:git:git://github.com/admin-shell-io/aas-transformation-library.git"
+					developerConnection = "scm:git:git://github.com/admin-shell-io/aas-transformation-library.git"
+					url = "https://github.com/admin-shell-io/aas-transformation-library/tree/main"
+				}
+			}
         }
     }
+}
+
+publishMavenJavaPublicationToMavenRepoRepository.onlyIf { project.hasProperty('release') }
+
+signing {
+	required { gradle.taskGraph.hasTask("publish") }
+	useGpgCmd()
+	sign publishing.publications.mavenJava
 }
 
 dependencies {
     def guava_version = "30.0-jre"
     def commons_version = "1.4"
     def junit_version = "5.7.0"
-    def mockito_version = "3.2.4"
+    def mockito_version = "3.12.4"
     def dom4j_version = "2.1.3"
     def apache_poi_version = "4.1.2"
     def jackson_version = "2.11.3"
