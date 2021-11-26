@@ -16,7 +16,6 @@ plugins {
     id 'maven-publish'
 }
 
-name = '${rootProject.name}'
 group = 'com.sap.dsc.aas.lib'
 version = '0.0.1-SNAPSHOT'
 
