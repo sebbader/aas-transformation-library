@@ -35,7 +35,7 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
 
       - name: Publish package
-        run: ./gradlew -i publish -Prelease -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.name }}
+        run: ./gradlew -i publish -Prelease -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OSSRH_USERNAME: sebbader

@@ -41,6 +41,6 @@ jobs:
           package-name: 'com.sap.dsc.aas.lib.aas-transformation-library'
 
       - name: Publish package
-        run: ./gradlew -i publish -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.name }}
+        run: ./gradlew -i publish -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
